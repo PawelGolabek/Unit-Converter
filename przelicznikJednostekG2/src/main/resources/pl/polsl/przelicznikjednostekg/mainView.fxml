@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="root" onKeyReleased="#handleInputs" onMouseClicked="#focusRoot" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.przelicznikjednostekg.MainViewController">
+   <children>
+      <Label accessibleText="Wlasne przeliczniki" layoutX="392.0" layoutY="101.0" text="Własne przeliczniki">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <tooltip>
+            <Tooltip text="Podpis tabeli ..." />
+         </tooltip>
+      </Label>
+      <Label layoutX="60.0" layoutY="326.0" prefHeight="18.0" prefWidth="41.0" text="Input">
+         <tooltip>
+            <Tooltip text="To tylko tekst z opisem pola input, nic sam z siebie nie robi" />
+         </tooltip></Label>
+      <Label id="result" fx:id="result" accessibleText="Wyniki pojawią się tutaj" layoutX="60.0" layoutY="383.0" text="Wyniki pojawią się tutaj&#10;">
+         <tooltip>
+            <Tooltip text="To wynik twojego obliczenia w jednostce wybranej z tabeli lub w stopniach Farenheita lub Celciusza. Jeśli nie wpisano liczby w polu input, wynik zawsze będzie wynosił 0" />
+         </tooltip></Label>
+      <TextField id="bValue" fx:id="aValue" accessibleText="Input box for your x in Ax+B" layoutX="124.0" layoutY="322.0">
+         <tooltip>
+            <Tooltip text="Tutaj wstaw swoją liczbę którą chcesz przeliczyć" />
+         </tooltip></TextField>
+      <TableView fx:id="table" accessibleText="Table holding the values of the custom converters" editable="true" layoutX="392.0" layoutY="154.0" onMouseClicked="#tableClicked" prefHeight="452.0" prefWidth="554.0" style="-fx-background-color: #aaaaaa;">
+        <columns>
+            <TableColumn id="slotTable" fx:id="SlotCol" prefWidth="57.0" text="Slot" />
+          <TableColumn id="nameTable" fx:id="nameCol" prefWidth="318.0" text="Nazwa Przelicznika" />
+          <TableColumn id="aTable" fx:id="aCol" minWidth="0.0" prefWidth="89.0" text="A" />
+            <TableColumn id="bTable" fx:id="bCol" minWidth="0.0" prefWidth="89.0" text="B" />
+        </columns>
+         <tooltip>
+            <Tooltip text="Tabela przeliczników. Kliknięcie na nią spowoduje wykonanie obliczenia na liczbie z pola &quot;Input&quot; i wyświetlenie jej poniżej pola &quot;Input&quot;" />
+         </tooltip>
+      </TableView>
+      <Button id="calculate" fx:id="celciusButt" layoutX="60.0" layoutY="540.0" mnemonicParsing="false" onAction="#celciusButtonFunc" onMouseClicked="#celciusButton" text="Celcius-&gt;Farenheit" textAlignment="CENTER">
+         <tooltip>
+            <Tooltip text="Ten przycisk wywołuje domyślną funkcję przeliczania ze stopni celciusza do stopni Farenheita" />
+         </tooltip></Button>
+      <Button id="calculate" fx:id="farenheitButt" layoutX="179.0" layoutY="540.0" mnemonicParsing="false" onAction="#farenheitButtonFuncA" onKeyReleased="#farenheitButtonFunc" text="Farenheit-&gt;Celcius" textAlignment="CENTER">
+         <tooltip>
+            <Tooltip text="Ten przycisk wywołuje domyślną funkcję przeliczania ze stopni Farennheita do stopni Celciusza" />
+         </tooltip></Button>
+      <Label accessibleText="Wpisz swoją liczbę a potem kliknij na przycisk lub jeden z przeliczników z tabeli" layoutX="60.0" layoutY="101.0" prefHeight="163.0" prefWidth="260.0" text="Wpisz swoją liczbę a potem kliknij na przycisk lub jeden z przeliczników z tabeli" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="test" text="Label z opisem, nie wiem co mam wyjaśniać" />
+         </tooltip>
+      </Label>
+      <Button fx:id="resetConvertersButton" layoutX="392.0" layoutY="704.0" mnemonicParsing="false" onAction="#resetConvertersButtonFuncA" onKeyReleased="#resetConvertersButtonFuncKey" onMouseReleased="#resetConvertersButtonFunc" prefHeight="53.0" prefWidth="75.0" text="Zresetuj przeliczniki" textAlignment="CENTER" wrapText="true">
+         <tooltip>
+            <Tooltip text="Ten przycisk wczytuje twoje przeliczniki z pliku savedConverters.ini i wpisuje je do tabeli zastępując wszystkie zmiany jakich dokonano" />
+         </tooltip>
+      </Button>
+      <Button fx:id="saveConvertersButton" layoutX="477.0" layoutY="704.0" mnemonicParsing="false" onAction="#saveConvertersButtonFuncA" onMouseReleased="#saveConvertersButtonFunc" prefHeight="53.0" prefWidth="89.0" text="Zapisz przeliczniki" textAlignment="CENTER" wrapText="true">
+         <tooltip>
+            <Tooltip text="Wciśnięcie tego przycisku powoduje zapisanie obecnej konfiguracji przeliczników i nadpisanie poprzedniej z pliku savedConverters.ini" />
+         </tooltip>
+      </Button>
+      <TextField fx:id="slot" accessibleText="Tutaj wpisz w którym slocie chcesz umieścić swój własny przelicznik. Liczba musi być w zakresie 4-98" layoutX="392.0" layoutY="621.0" prefHeight="25.0" prefWidth="47.0" promptText="Slot">
+         <tooltip>
+            <Tooltip text="Tutaj wpisz w którym slocie chcesz umieścić swój własny przelicznik. Liczba musi być w zakresie 4-98" />
+         </tooltip></TextField>
+      <TextField fx:id="nameConverter" accessibleText="Nazwa dla twojego nowego przelicznika" layoutX="444.0" layoutY="621.0" prefHeight="25.0" prefWidth="310.0" promptText="Nazwa Przelicznika">
+         <tooltip>
+            <Tooltip text="Nazwa dla twojego nowego przelicznika" />
+         </tooltip></TextField>
+      <TextField fx:id="aConverter" accessibleText="Wartość A twojego nowego przelicznika do użycia we wzorze Ax+B" layoutX="760.0" layoutY="621.0" prefHeight="25.0" prefWidth="81.0" promptText="Wartość A">
+         <tooltip>
+            <Tooltip text="Wartość A twojego nowego przelicznika do użycia we wzorze Ax+B" />
+         </tooltip></TextField>
+      <AnchorPane layoutX="846.0" layoutY="621.0">
+         <children>
+            <TextField fx:id="bConverter" accessibleText="Wartość B twojego nowego przelicznika do użycia we wzorze Ax+B" prefHeight="25.0" prefWidth="100.0" promptText="Wartość B">
+               <tooltip>
+                  <Tooltip text="Wartość B twojego nowego przelicznika do użycia we wzorze Ax+B" />
+               </tooltip></TextField>
+         </children>
+      </AnchorPane>
+      <Button fx:id="addConverterButton" accessibleText="Naciśnij przycisk po wprowadzeniu parametrówd do pól powyżej aby dodać przelicznik do tabeli. Żadne pole nie może pozostać puste. Naciśnięcie tego przycisku nie powoduje zapisania konfiguracji. Zapisz nowy przelicznik naciskając przycisk &quot;Zapisz przeliczniki&quot;" layoutX="846.0" layoutY="663.0" mnemonicParsing="false" onAction="#addConverterButtonA" onMouseReleased="#addButton" prefHeight="53.0" prefWidth="100.0" text="Dodaj Przelicznik" textAlignment="CENTER" wrapText="true">
+         <tooltip>
+            <Tooltip text="Naciśnij przycisk po wprowadzeniu parametrówd do pól powyżej aby dodać przelicznik do tabeli. Żadne pole nie może pozostać puste. Naciśnięcie tego przycisku nie powoduje zapisania konfiguracji. Zapisz nowy przelicznik naciskając przycisk &quot;Zapisz przeliczniki&quot;" />
+         </tooltip></Button>      
+   </children>
+</AnchorPane>
